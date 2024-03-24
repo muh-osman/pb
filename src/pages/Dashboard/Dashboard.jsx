@@ -20,7 +20,7 @@ import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import logo from "../../assets/images/logo-slim.jpg";
+import logo from "../../assets/images/logo.png";
 // MUI icons
 import StyleIcon from "@mui/icons-material/Style";
 import HomeIcon from "@mui/icons-material/Home";
@@ -28,13 +28,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useState, useEffect, useContext } from "react";
 import api from "../../api";
 // useContext
-import { TrigerContext } from "../../context/trigerProvider";
+// import { TrigerContext } from "../../context/trigerProvider";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
   // useContext
-  const { triger, setTriger } = useContext(TrigerContext);
+  // const { triger, setTriger } = useContext(TrigerContext);
   //
   const nav = useNavigate();
   const [data, setData] = useState([]);
@@ -51,7 +51,7 @@ function Dashboard(props) {
 
   useEffect(() => {
     fetchData();
-  }, [triger]);
+  }, []);
 
   const { pathname } = useLocation();
 
@@ -151,7 +151,7 @@ function Dashboard(props) {
 
   const logout = () => {
     localStorage.clear();
-    nav("/");
+    nav("/login");
   };
 
   return (
