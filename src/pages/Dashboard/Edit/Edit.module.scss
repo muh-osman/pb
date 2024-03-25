@@ -1,0 +1,24 @@
+.container {
+  min-height: calc(100vh - 112px);
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.box {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.btn_box {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    min-height: calc(100vh - 104px);
+  }
+}

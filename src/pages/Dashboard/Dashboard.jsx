@@ -22,8 +22,10 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import logo from "../../assets/images/logo.png";
 // MUI icons
-import StyleIcon from "@mui/icons-material/Style";
-import HomeIcon from "@mui/icons-material/Home";
+// import StyleIcon from "@mui/icons-material/Style";
+// import HomeIcon from "@mui/icons-material/Home";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LaunchIcon from "@mui/icons-material/Launch";
 //
 import { useState, useEffect, useContext } from "react";
 import api from "../../api";
@@ -37,21 +39,21 @@ function Dashboard(props) {
   // const { triger, setTriger } = useContext(TrigerContext);
   //
   const nav = useNavigate();
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  async function fetchData() {
-    try {
-      const res = await api.get("api/cards");
-      setData(res.data);
-      // console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async function fetchData() {
+  //   try {
+  //     const res = await api.get("api/cards");
+  //     // setData(res.data);
+  //     // console.log(res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const { pathname } = useLocation();
 
@@ -83,7 +85,7 @@ function Dashboard(props) {
       <Divider />
 
       <List>
-        {/* Home */}
+        {/* Dashboard */}
         <ListItem
           dir="ltr"
           disablePadding
@@ -102,16 +104,42 @@ function Dashboard(props) {
                   backgroundColor: "transparent",
                 }}
               >
-                <HomeIcon sx={{ color: "#000" }} />
+                <DashboardIcon sx={{ color: "#000" }} />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText primary={"Dashboard"} />
+          </ListItemButton>
+        </ListItem>
+
+        <Divider />
+
+        {/* Home */}
+        <ListItem
+          dir="ltr"
+          disablePadding
+          button
+          component={Link}
+          to="/"
+          target="_blank"
+        >
+          <ListItemButton sx={{ color: "#000" }}>
+            <ListItemIcon>
+              <Avatar
+                alt="icon"
+                sx={{
+                  width: 36,
+                  height: 36,
+                  backgroundColor: "transparent",
+                }}
+              >
+                <LaunchIcon sx={{ color: "#000" }} />
               </Avatar>
             </ListItemIcon>
             <ListItemText primary={"Home"} />
           </ListItemButton>
         </ListItem>
 
-        <Divider />
-
-        {data.map((item) => {
+        {/* {data.map((item) => {
           return (
             <ListItem
               dir="ltr"
@@ -139,7 +167,7 @@ function Dashboard(props) {
               </ListItemButton>
             </ListItem>
           );
-        })}
+        })} */}
 
         {/* <Divider /> */}
       </List>

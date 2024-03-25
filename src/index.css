@@ -8,3 +8,39 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Hide Arrows From Input Number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* form bootstrsp */
+.btn-primary {
+  background-color: #b6ac9a !important;
+  border-color: #b6ac9a !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #837966 !important;
+  border-color: #b6ac9a !important;
+}
+
+.form-control:focus {
+  border-color: #b6ac9a !important;
+  box-shadow: 0 0 0 0.25rem #b6ac9a6c !important;
+}
+
+input,
+textarea {
+  color: #837966 !important;
+  background-color: #fef8fb !important;
+}
