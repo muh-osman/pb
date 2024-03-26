@@ -1,36 +1,31 @@
 import style from "./Edit.module.scss";
 
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 // API
 import api from "../../../api";
-// MUI icon
-import IconButton from "@mui/material/IconButton";
 // sweetalert
 import Swal from "sweetalert2";
-// useContext
-// import { TrigerContext } from "../../context/trigerProvider";
 
 export default function Edit() {
-  // useContext
-  //   const { triger, setTriger } = useContext(TrigerContext);
-  //
-  const nav = useNavigate();
-
   const [clickedButton, setClickedButton] = useState(false);
+  const [data, setData] = useState({
+    gold: "0",
+    silver: "0",
+    diamond: "0",
+    platinum: "0",
+  });
 
   async function fetchData() {
     try {
-      const res = await api.get(`api/cards`);
-      // console.log(res.data);
-      //   setTitle(res.data.title);
+      const res = await api.get(`api/prices`);
+      // console.log(res.data[0]);
+      setData(res.data[0]);
     } catch (err) {
       console.error(err);
     }
   }
 
   useEffect(() => {
-    // document.getElementsByTagName("form")[0].reset();
     fetchData();
   }, []);
 
@@ -41,38 +36,17 @@ export default function Edit() {
     const formData = new FormData(document.getElementById("edit-form"));
 
     try {
-      let res = await api.post(`api/cards/1?_method=PATCH`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      let res = await api.post(`api/prices/1?_method=PATCH`, formData);
 
-        onUploadProgress: function (progressEvent) {
-          let progress = (progressEvent.loaded / progressEvent.total) * 100;
+      // Stop button animation
+      setClickedButton(false);
 
-          console.log(progress);
-
-          if (progress === 100) {
-            setTimeout(() => {
-              setClickedButton(false);
-
-              // Reset the form after submission
-              document.getElementsByTagName("form")[0].reset();
-
-              // Stop button animation
-              setClickedButton(false);
-
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "All changes saved",
-                showConfirmButton: false,
-                timer: 2000,
-              }).then(() => {
-                nav("/dashboard");
-              });
-            }, 3000);
-          }
-        },
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "All changes saved",
+        showConfirmButton: false,
+        timer: 2000,
       });
     } catch (err) {
       setClickedButton(false);
@@ -112,6 +86,10 @@ export default function Edit() {
               name="gold"
               className="form-control"
               id="gold"
+              value={data.gold}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, gold: e.target.value }))
+              }
             />
           </div>
 
@@ -125,6 +103,10 @@ export default function Edit() {
               name="silver"
               className="form-control"
               id="silver"
+              value={data.silver}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, silver: e.target.value }))
+              }
             />
           </div>
 
@@ -138,6 +120,10 @@ export default function Edit() {
               name="diamond"
               className="form-control"
               id="diamond"
+              value={data.diamond}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, diamond: e.target.value }))
+              }
             />
           </div>
 
@@ -151,6 +137,10 @@ export default function Edit() {
               name="platinum"
               className="form-control"
               id="platinum"
+              value={data.platinum}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, platinum: e.target.value }))
+              }
             />
           </div>
 

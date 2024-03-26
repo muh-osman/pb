@@ -1,78 +1,36 @@
+// SASS
 import style from "./Add.module.scss";
-
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+// React
+import { useState } from "react";
 // API
 import api from "../../../api";
-// MUI icon
-import IconButton from "@mui/material/IconButton";
 // sweetalert
 import Swal from "sweetalert2";
-// useContext
-// import { TrigerContext } from "../../context/trigerProvider";
 
 export default function Add() {
-  // useContext
-  //   const { triger, setTriger } = useContext(TrigerContext);
-  //
-  const nav = useNavigate();
-
   const [clickedButton, setClickedButton] = useState(false);
-
-  async function fetchData() {
-    try {
-      const res = await api.get(`api/cards`);
-      // console.log(res.data);
-      //   setTitle(res.data.title);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  useEffect(() => {
-    // document.getElementsByTagName("form")[0].reset();
-    fetchData();
-  }, []);
 
   async function submitData(e) {
     e.preventDefault();
     setClickedButton(true);
 
-    const formData = new FormData(document.getElementById("edit-form"));
+    const formData = new FormData(document.getElementById("add-form"));
 
     try {
-      let res = await api.post(`api/cards/1?_method=PATCH`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      await api.post(`api/prices`, formData);
 
-        onUploadProgress: function (progressEvent) {
-          let progress = (progressEvent.loaded / progressEvent.total) * 100;
+      // Reset the form after submission
+      document.getElementsByTagName("form")[0].reset();
 
-          console.log(progress);
+      // Stop button animation
+      setClickedButton(false);
 
-          if (progress === 100) {
-            setTimeout(() => {
-              setClickedButton(false);
-
-              // Reset the form after submission
-              document.getElementsByTagName("form")[0].reset();
-
-              // Stop button animation
-              setClickedButton(false);
-
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "All changes saved",
-                showConfirmButton: false,
-                timer: 2000,
-              }).then(() => {
-                nav("/dashboard");
-              });
-            }, 3000);
-          }
-        },
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "All changes saved",
+        showConfirmButton: false,
+        timer: 2000,
       });
     } catch (err) {
       setClickedButton(false);
@@ -101,7 +59,7 @@ export default function Add() {
           Add Price
         </h1>
         {/* form */}
-        <form onSubmit={submitData} id="edit-form">
+        <form onSubmit={submitData} id="add-form">
           {/* Gold */}
           <div className="mb-3">
             <label htmlFor="gold" className="form-label">
@@ -112,6 +70,7 @@ export default function Add() {
               name="gold"
               className="form-control"
               id="gold"
+              required
             />
           </div>
 
@@ -125,6 +84,7 @@ export default function Add() {
               name="silver"
               className="form-control"
               id="silver"
+              required
             />
           </div>
 
@@ -138,6 +98,7 @@ export default function Add() {
               name="diamond"
               className="form-control"
               id="diamond"
+              required
             />
           </div>
 
@@ -151,6 +112,7 @@ export default function Add() {
               name="platinum"
               className="form-control"
               id="platinum"
+              required
             />
           </div>
 

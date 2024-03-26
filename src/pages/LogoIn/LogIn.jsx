@@ -109,7 +109,6 @@ export default function LogIn() {
               name="email"
               autoComplete="email"
               autoFocus
-              value="admin@mail.com"
             />
             <TextField
               margin="normal"
@@ -120,7 +119,6 @@ export default function LogIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              value="00266321@zxc"
             />
 
             <Button
